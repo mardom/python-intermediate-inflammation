@@ -22,16 +22,28 @@ jobs:
     - name: Set up Python 3.9
       uses: actions/setup-python@v2
       with: 
-        python-version: 3.9
+      python-version: 3.9
+
+
+    - name: Lint with flake8
+      run: |
+        $CONDA/bin/conda install flake8
+        # stop the build if there are Python syntax errors or undefined names
+        $CONDA/bin/flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+      $CONDA/bin/flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
 
     - name: Install Python dependencies
       run: |
-        python3 -m pip install --upgrade pip
-        pip3 install -r requirements.txt
-        pip3 install -e .
+        # $CONDA is an environment variable pointing to the root of the miniconda directory
+        $CONDA/bin/conda env update --file environment.yml --name base
+        #python3 -m pip install --upgrade pip
+        #pip3 install -r requirements.txt
+        #pip3 install -e .
 
     - name: Test with PyTest
       run: |
+        conda install pytest
         pytest --cov=inflammation.models tests/test_models.py
 
 
