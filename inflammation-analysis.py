@@ -5,7 +5,6 @@ import argparse
 
 from inflammation import models, views
 
-
 def main(args):
     """The MVC Controller of the patient inflammation data system.
 
@@ -33,6 +32,20 @@ if __name__ == "__main__":
         'infiles',
         nargs='+',
         help='Input CSV(s) containing inflammation series for each patient')
+
+    parser.add_argument(
+        '--view',
+        default='visualize',
+        choices=['visualize', 'record'],
+        help='Which view should be used?')
+
+    parser.add_argument(
+        '--patient',
+        type=int,
+        default=0,
+        help='Which patient should be displayed?')
+
+
 
     args = parser.parse_args()
 
