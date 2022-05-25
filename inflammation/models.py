@@ -86,6 +86,10 @@ class Patient(Person):   # class inheritance example
         self.observations.append(new_observation)
         return new_observation
 
+    @property
+    def last_observation(self):
+        return self.observations[-1]
+
 class Doctor(Person):
     """A doctor in an inflammation study."""
     def __init__(self, name):
@@ -99,11 +103,6 @@ class Doctor(Person):
             if patient.name == new_patient.name:
                 return
         self.patients.append(new_patient)
-
-
-    @property
-    def last_observation(self):
-        return self.observations[-1]
 
 
 class Observation:
