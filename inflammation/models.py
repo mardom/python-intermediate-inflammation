@@ -86,19 +86,19 @@ class Patient(Person):   # class inheritance example
         self.observations.append(new_observation)
         return new_observation
 
-    class Doctor(Person):
-        """A doctor in an inflammation study."""
-        def __init__(self, name):
-            super().__init__(name)
-            self.patients = []
+class Doctor(Person):
+    """A doctor in an inflammation study."""
+    def __init__(self, name):
+        super().__init__(name)
+        self.patients = []
 
-        def add_patient(self, new_patient):
-            # A crude check by name if this patient is already looked after
-            # by this doctor before adding them
-            for patient in self.patients:
-                if patient.name == new_patient.name:
-                    return
-            self.patients.append(new_patient)
+    def add_patient(self, new_patient):
+        # A crude check by name if this patient is already looked after
+        # by this doctor before adding them
+        for patient in self.patients:
+            if patient.name == new_patient.name:
+                return
+        self.patients.append(new_patient)
 
 
     @property
