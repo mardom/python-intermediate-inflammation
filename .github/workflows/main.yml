@@ -24,6 +24,10 @@ jobs:
       with: 
         python-version: 3.9
 
+    - name: Install Python dependencies
+      run: |
+        # $CONDA is an environment variable pointing to the root of the miniconda directory
+        $CONDA/bin/conda env update --file environment.yml --name base      
 
     - name: Lint with flake8
       run: |
@@ -33,21 +37,10 @@ jobs:
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         $CONDA/bin/flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
 
-    - name: Install Python dependencies
-      run: |
-        # $CONDA is an environment variable pointing to the root of the miniconda directory
-        $CONDA/bin/conda env update --file environment.yml --name base
-        #python3 -m pip install --upgrade pip
-        #pip3 install -r requirements.txt
-        #pip3 install -e .
-
     - name: Test with PyTest
       run: |
         conda install pytest
         $conda/bin/pytest --cov=inflammation.models tests/test_models.py
-
-
-
 
 
 
